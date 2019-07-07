@@ -22,6 +22,8 @@ class SentMemesTableViewController: UIViewController, UITableViewDataSource, UIT
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        TableView.dataSource = self
+        TableView.delegate = self
     }
     
     

@@ -24,10 +24,6 @@ class SentMemesCollectionViewController: UICollectionViewController {
     
     // MARK: Life Cycle
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tabBarController?.tabBar.isHidden = false
@@ -50,6 +46,7 @@ class SentMemesCollectionViewController: UICollectionViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         collectionView.reloadData()
     }
     

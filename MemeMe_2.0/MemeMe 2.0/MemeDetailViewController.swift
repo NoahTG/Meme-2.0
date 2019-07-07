@@ -24,10 +24,6 @@ class MemeDetailViewController: UIViewController {
     
     // MARK: Life Cycle
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.tabBarController?.tabBar.isHidden = true

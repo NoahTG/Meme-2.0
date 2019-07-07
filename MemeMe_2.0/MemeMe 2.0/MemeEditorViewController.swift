@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  MemeEditorViewController.swift
 //  MemeMe 1.0
 //
 //  Created by NTG on 6/8/19.
@@ -59,6 +59,10 @@ UINavigationControllerDelegate, UITextFieldDelegate {
         pickAnImage(.camera)
     }
     
+    @IBAction func cancelButton() {
+        dismiss(animated: true, completion: nil)
+    }
+    
     func pickAnImage(_ source: UIImagePickerController.SourceType){
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
@@ -89,6 +93,7 @@ UINavigationControllerDelegate, UITextFieldDelegate {
         activityVC.completionWithItemsHandler = {(activity, success, items, error) in
             if success {
                 self.save()
+                self.dismiss(animated: true, completion: nil)
             }
         }
         present(activityVC, animated: true, completion: nil)
@@ -111,7 +116,7 @@ UINavigationControllerDelegate, UITextFieldDelegate {
         NSAttributedString.Key.strokeWidth: -4
     ]
     
-    // move screen op
+    // move screen up
     @objc func keyboardWillShow(_ notification: Notification) {
         if(self.bottomTextField.isEditing){
             view.frame.origin.y = -getKeyboardHeight(notification)
@@ -123,7 +128,6 @@ UINavigationControllerDelegate, UITextFieldDelegate {
     @objc func keyboardWillHide(_ notification: Notification) {
         view.frame.origin.y = 0
     }
-    
     
     func getKeyboardHeight(_ notification: Notification) -> CGFloat {
         let userInfo = notification.userInfo
@@ -158,14 +162,21 @@ UINavigationControllerDelegate, UITextFieldDelegate {
     // MEME
     
     func save() {
-        _ = Meme(topText: topTextField.text!, bottomText: bottomTextField.text!, originalImage: ImagePickerView.image!, memedImage: generateMemedImage())
+        let meme = Meme(topText: topTextField.text!,
+                        bottomText: bottomTextField.text!,
+                        originalImage: ImagePickerView.image!,
+                        memedImage: generateMemedImage())
+        
+        let object = UIApplication.shared.delegate
+        let appDelegate = object as! AppDelegate
+        appDelegate.memes.append(meme)
     }
     
     func hide(isHidden: Bool) {
         navbar.isHidden = isHidden
         toolbar.isHidden = isHidden
     }
-    
+   
     
     func generateMemedImage() -> UIImage {
         
